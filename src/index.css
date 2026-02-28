@@ -5,8 +5,8 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", ui-serif, Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --color-parchment: #F9F7F2;
-  --color-ink: #111111;
+  --color-parchment: #fdfbf7;
+  --color-ink: #000000;
 }
 
 body {

@@ -10,7 +10,7 @@ export function Contact() {
       className="max-w-4xl mx-auto space-y-12 pb-16"
     >
       <header className="border-b-4 border-ink pb-8 mb-12">
-        <h1 className="font-serif font-black text-5xl md:text-7xl tracking-tighter uppercase mb-4 text-blue-600">
+        <h1 className="font-serif font-black text-5xl md:text-7xl tracking-tighter uppercase mb-4 text-ink">
           Contact
         </h1>
         <p className="font-serif text-xl md:text-2xl italic text-ink/80 leading-relaxed">

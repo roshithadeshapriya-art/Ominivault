@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RefreshCw, Copy, CheckCircle2, Trash2, Clock, X, MailOpen } from "lucide-react";
 import { AdContainer } from "../components/AdContainer";
+import { Helmet } from "react-helmet-async";
 
 export function TempMail() {
   const [email, setEmail] = useState("");
@@ -126,6 +127,10 @@ export function TempMail() {
 
   return (
     <div className="space-y-8">
+      <Helmet>
+        <title>The Temporary | Anonymous Receiving Station</title>
+        <meta name="description" content="Secure, temporary email service for engineers and privacy-conscious users. Part of The Temporary's suite of engineering tools for global transition." />
+      </Helmet>
       <div className="text-center border-b-4 border-ink pb-6 mb-8">
         <h1 className="text-6xl md:text-8xl font-black font-serif uppercase tracking-tighter mb-4">The Daily Mail</h1>
         <p className="font-serif italic text-xl">Your Anonymous Receiving Station</p>
@@ -164,7 +169,7 @@ export function TempMail() {
           </div>
         )}
 
-        <div className="lg:col-span-3 space-y-8">
+        <div className="lg:col-span-8 space-y-8">
           <div className="border-newspaper p-8 bg-white/50">
             <div className="flex flex-col md:flex-row items-stretch gap-0 border-newspaper-thick">
               <div className="flex-1 relative bg-white">
@@ -232,63 +237,90 @@ export function TempMail() {
                   <p className="text-sm mt-2">Awaiting transmission...</p>
                 </div>
               ) : (
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b-2 border-ink font-serif uppercase tracking-widest text-sm">
-                      <th className="p-4 border-r border-ink/30">Sender</th>
-                      <th className="p-4 border-r border-ink/30">Subject</th>
-                      <th className="p-4 border-r border-ink/30">Time</th>
-                      <th className="p-4 w-16 text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {messages.map((msg, idx) => (
-                      <tr key={msg.id} className={`border-b border-ink/30 hover:bg-ink/5 transition-colors ${idx % 2 === 0 ? 'bg-white/30' : ''}`}>
-                        <td className="p-4 border-r border-ink/30 font-medium">{msg.from.address}</td>
-                        <td className="p-4 border-r border-ink/30">
-                          <div className="font-bold font-serif">{msg.subject}</div>
-                          <div className="text-sm opacity-70 truncate max-w-md">{msg.intro}</div>
-                        </td>
-                        <td className="p-4 border-r border-ink/30 text-sm font-mono">{new Date(msg.createdAt).toLocaleTimeString()}</td>
-                        <td className="p-4 text-center">
-                          <div className="flex items-center justify-center gap-2">
-                            <button
-                              onClick={() => openMail(msg)}
-                              className="p-2 hover:bg-ink/10 rounded transition-colors inline-flex items-center justify-center"
-                              title="Open Message"
-                            >
-                              <MailOpen size={16} />
-                            </button>
-                            <button
-                              onClick={() => {
-                                navigator.clipboard.writeText(`From: ${msg.from.address}\nSubject: ${msg.subject}\n\n${msg.intro}`);
-                                setCopiedMsgId(msg.id);
-                                setTimeout(() => setCopiedMsgId(null), 2000);
-                              }}
-                              className="p-2 hover:bg-ink/10 rounded transition-colors inline-flex items-center justify-center"
-                              title="Copy Message"
-                            >
-                              {copiedMsgId === msg.id ? <CheckCircle2 size={16} /> : <Copy size={16} />}
-                            </button>
-                          </div>
-                        </td>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-b-2 border-ink font-serif uppercase tracking-widest text-sm">
+                        <th className="p-4 border-r border-ink/30">Sender</th>
+                        <th className="p-4 border-r border-ink/30">Subject</th>
+                        <th className="p-4 border-r border-ink/30">Time</th>
+                        <th className="p-4 w-16 text-center">Action</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {messages.map((msg, idx) => (
+                        <tr key={msg.id} className={`border-b border-ink/30 hover:bg-ink/5 transition-colors ${idx % 2 === 0 ? 'bg-white/30' : ''}`}>
+                          <td className="p-4 border-r border-ink/30 font-medium whitespace-nowrap">{msg.from.address}</td>
+                          <td className="p-4 border-r border-ink/30">
+                            <div className="font-bold font-serif">{msg.subject}</div>
+                            <div className="text-sm opacity-70 truncate max-w-xs">{msg.intro}</div>
+                          </td>
+                          <td className="p-4 border-r border-ink/30 text-sm font-mono whitespace-nowrap">{new Date(msg.createdAt).toLocaleTimeString()}</td>
+                          <td className="p-4 text-center">
+                            <div className="flex items-center justify-center gap-2">
+                              <button
+                                onClick={() => openMail(msg)}
+                                className="p-2 hover:bg-ink/10 rounded transition-colors inline-flex items-center justify-center"
+                                title="Open Message"
+                              >
+                                <MailOpen size={16} />
+                              </button>
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard.writeText(`From: ${msg.from.address}\nSubject: ${msg.subject}\n\n${msg.intro}`);
+                                  setCopiedMsgId(msg.id);
+                                  setTimeout(() => setCopiedMsgId(null), 2000);
+                                }}
+                                className="p-2 hover:bg-ink/10 rounded transition-colors inline-flex items-center justify-center"
+                                title="Copy Message"
+                              >
+                                {copiedMsgId === msg.id ? <CheckCircle2 size={16} /> : <Copy size={16} />}
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               )}
+            </div>
+          </div>
+
+          <div className="my-8 text-center text-xs font-mono text-ink/50 border border-dashed border-ink/30 p-4">
+            AD_SPACE_OPTIMIZED
+          </div>
+
+          {/* Article */}
+          <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+            <h2 className="text-2xl font-black font-serif uppercase tracking-tighter mb-4 text-ink">
+              The Architecture of Disposable Inboxes
+            </h2>
+            <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
+              Temporary email services act as a digital buffer zone. When testing new software integrations, signing up for untrusted services, or isolating communication channels, a disposable inbox prevents primary email addresses from being compromised or flooded with spam. 
+            </p>
+            <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
+              These systems typically operate by generating a unique cryptographic hash or random string mapped to a temporary domain. The mail server routes incoming SMTP traffic to this temporary address, storing it in volatile memory or a short-lived database. Once the session expires or the user manually destroys the inbox, all associated data is permanently purged, ensuring zero residual footprint.
+            </p>
+            <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
+              <p className="font-serif text-sm font-bold text-ink">
+                Safety Warning: How NOT to use: Not for life-critical, medical, or illegal activities.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="space-y-8">
-          <div className="border-newspaper p-4 text-center">
-            <h3 className="font-serif font-bold uppercase tracking-widest border-b border-ink pb-2 mb-4">Notice</h3>
-            <p className="text-sm italic mb-4">
-              This service provides temporary, disposable email addresses. Messages are deleted automatically. Do not use for important accounts.
-            </p>
-          </div>
-          <AdContainer className="h-[400px] w-full" />
+        <div className="lg:col-span-4 space-y-8">
+           <div className="sticky top-32 border border-ink p-4 bg-white/30">
+              <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-3 text-center opacity-60">
+                Sponsored Content
+              </div>
+              <AdContainer 
+                className="w-full aspect-square" 
+                format="rectangle" 
+                label="" 
+              />
+            </div>
         </div>
       </div>
     </div>

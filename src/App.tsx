@@ -7,15 +7,19 @@ import { GlobalBriefing } from "./pages/GlobalBriefing";
 import { TestLab } from "./pages/TestLab";
 import { CodeStudio } from "./pages/CodeStudio";
 import { DataGenerator } from "./pages/DataGenerator";
+import { DataForge } from "./pages/DataForge";
+import { LinguisticHub } from "./pages/LinguisticHub";
 import { Privacy } from "./pages/Privacy";
 import { Terms } from "./pages/Terms";
 import { AboutUs } from "./pages/AboutUs";
 import { EngineeringLab } from "./pages/EngineeringLab";
 import { Contact } from "./pages/Contact";
+import { HelmetProvider } from "react-helmet-async";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<TempMail />} />
@@ -24,6 +28,8 @@ export default function App() {
           <Route path="test-lab" element={<TestLab />} />
           <Route path="code-studio" element={<CodeStudio />} />
           <Route path="data-generator" element={<DataGenerator />} />
+          <Route path="data-forge" element={<DataForge />} />
+          <Route path="linguistic-hub" element={<LinguisticHub />} />
           <Route path="privacy" element={<Privacy />} />
           <Route path="terms" element={<Terms />} />
           <Route path="about-us" element={<AboutUs />} />
@@ -32,6 +38,7 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

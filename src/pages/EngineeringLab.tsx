@@ -1,11 +1,33 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { AdContainer } from "../components/AdContainer";
+import { Helmet } from "react-helmet-async";
+import { Copy, CheckCircle2, Download, Trash2 } from "lucide-react";
 
 export function EngineeringLab() {
   const [voltage, setVoltage] = useState("");
   const [current, setCurrent] = useState("");
   const [resistance, setResistance] = useState("");
+  const [copiedOhms, setCopiedOhms] = useState(false);
+
+  const [band1, setBand1] = useState("1");
+  const [band2, setBand2] = useState("0");
+  const [multiplier, setMultiplier] = useState("100");
+  const [tolerance, setTolerance] = useState("5");
+  const [copiedResistor, setCopiedResistor] = useState(false);
+
+  const calculateResistor = () => {
+    const value = (parseInt(band1) * 10 + parseInt(band2)) * parseFloat(multiplier);
+    let displayValue = value.toString();
+    if (value >= 1000000) {
+      displayValue = (value / 1000000).toFixed(1).replace(/\.0$/, '') + " MΩ";
+    } else if (value >= 1000) {
+      displayValue = (value / 1000).toFixed(1).replace(/\.0$/, '') + " kΩ";
+    } else {
+      displayValue = value.toString() + " Ω";
+    }
+    return `${displayValue} ±${tolerance}%`;
+  };
 
   const calculateOhmsLaw = () => {
     const v = parseFloat(voltage);
@@ -27,6 +49,48 @@ export function EngineeringLab() {
     setResistance("");
   };
 
+  const copyOhmsLaw = () => {
+    const text = `Ohm's Law Calculation:\nVoltage: ${voltage || '?'} V\nCurrent: ${current || '?'} A\nResistance: ${resistance || '?'} Ω`;
+    navigator.clipboard.writeText(text);
+    setCopiedOhms(true);
+    setTimeout(() => setCopiedOhms(false), 2000);
+  };
+
+  const exportOhmsLaw = () => {
+    const text = `Voltage,Current,Resistance\n${voltage || ''},${current || ''},${resistance || ''}`;
+    const blob = new Blob([text], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "ohms-law.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const clearResistor = () => {
+    setBand1("1");
+    setBand2("0");
+    setMultiplier("100");
+    setTolerance("5");
+  };
+
+  const copyResistor = () => {
+    navigator.clipboard.writeText(`Resistor Value: ${calculateResistor()}`);
+    setCopiedResistor(true);
+    setTimeout(() => setCopiedResistor(false), 2000);
+  };
+
+  const exportResistor = () => {
+    const text = `Band 1,Band 2,Multiplier,Tolerance,Value\n${band1},${band2},${multiplier},${tolerance},${calculateResistor()}`;
+    const blob = new Blob([text], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "resistor.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -34,8 +98,12 @@ export function EngineeringLab() {
       exit={{ opacity: 0, y: -20 }}
       className="space-y-8"
     >
+      <Helmet>
+        <title>The Temporary | Engineering Lab</title>
+        <meta name="description" content="Precision engineering tools, Ohm's law calculators, and component references for hardware design and global transition." />
+      </Helmet>
       <div className="border-b-4 border-ink pb-6 mb-8 text-center relative">
-        <h1 className="text-5xl md:text-7xl font-black font-serif uppercase tracking-tighter mb-2 mt-4 text-blue-600">Engineering Lab</h1>
+        <h1 className="text-5xl md:text-7xl font-black font-serif uppercase tracking-tighter mb-2 mt-4 text-ink">Engineering Lab</h1>
         <p className="font-serif italic text-xl">Precision Tools & Calculators</p>
       </div>
 
@@ -80,18 +148,122 @@ export function EngineeringLab() {
               </div>
             </div>
             
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4 items-center justify-between border-t-2 border-ink/20 pt-4">
               <button 
                 onClick={calculateOhmsLaw}
-                className="bg-ink text-white font-serif font-bold uppercase tracking-widest px-6 py-2 hover:bg-blue-600 transition-colors"
+                className="bg-ink text-white font-serif font-bold uppercase tracking-widest px-6 py-2 hover:bg-ink/80 transition-colors"
               >
                 Calculate
               </button>
-              <button 
-                onClick={clearOhmsLaw}
-                className="border-2 border-ink text-ink font-serif font-bold uppercase tracking-widest px-6 py-2 hover:bg-ink/5 transition-colors"
-              >
-                Clear
+              <div className="flex flex-wrap gap-2">
+                <button onClick={clearOhmsLaw} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                  <Trash2 size={12} /> Clear
+                </button>
+                <button onClick={copyOhmsLaw} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                  {copiedOhms ? <CheckCircle2 size={12} /> : <Copy size={12} />} {copiedOhms ? "Copied" : "Copy"}
+                </button>
+                <button onClick={exportOhmsLaw} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                  <Download size={12} /> Export
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Resistor Color Code Calculator */}
+          <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+            <h3 className="text-xl font-black font-serif uppercase tracking-tighter mb-2">Resistor Color Code (4-Band)</h3>
+            <p className="font-sans text-sm text-ink/80 mb-4">Select colors to determine resistance value.</p>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div>
+                <label className="block font-serif text-xs font-bold uppercase tracking-widest mb-2">Band 1</label>
+                <select 
+                  value={band1}
+                  onChange={(e) => setBand1(e.target.value)}
+                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                >
+                  <option value="0">Black (0)</option>
+                  <option value="1">Brown (1)</option>
+                  <option value="2">Red (2)</option>
+                  <option value="3">Orange (3)</option>
+                  <option value="4">Yellow (4)</option>
+                  <option value="5">Green (5)</option>
+                  <option value="6">Blue (6)</option>
+                  <option value="7">Violet (7)</option>
+                  <option value="8">Gray (8)</option>
+                  <option value="9">White (9)</option>
+                </select>
+              </div>
+              <div>
+                <label className="block font-serif text-xs font-bold uppercase tracking-widest mb-2">Band 2</label>
+                <select 
+                  value={band2}
+                  onChange={(e) => setBand2(e.target.value)}
+                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                >
+                  <option value="0">Black (0)</option>
+                  <option value="1">Brown (1)</option>
+                  <option value="2">Red (2)</option>
+                  <option value="3">Orange (3)</option>
+                  <option value="4">Yellow (4)</option>
+                  <option value="5">Green (5)</option>
+                  <option value="6">Blue (6)</option>
+                  <option value="7">Violet (7)</option>
+                  <option value="8">Gray (8)</option>
+                  <option value="9">White (9)</option>
+                </select>
+              </div>
+              <div>
+                <label className="block font-serif text-xs font-bold uppercase tracking-widest mb-2">Multiplier</label>
+                <select 
+                  value={multiplier}
+                  onChange={(e) => setMultiplier(e.target.value)}
+                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                >
+                  <option value="1">Black (x1)</option>
+                  <option value="10">Brown (x10)</option>
+                  <option value="100">Red (x100)</option>
+                  <option value="1000">Orange (x1k)</option>
+                  <option value="10000">Yellow (x10k)</option>
+                  <option value="100000">Green (x100k)</option>
+                  <option value="1000000">Blue (x1M)</option>
+                  <option value="0.1">Gold (x0.1)</option>
+                  <option value="0.01">Silver (x0.01)</option>
+                </select>
+              </div>
+              <div>
+                <label className="block font-serif text-xs font-bold uppercase tracking-widest mb-2">Tolerance</label>
+                <select 
+                  value={tolerance}
+                  onChange={(e) => setTolerance(e.target.value)}
+                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                >
+                  <option value="1">Brown (±1%)</option>
+                  <option value="2">Red (±2%)</option>
+                  <option value="0.5">Green (±0.5%)</option>
+                  <option value="0.25">Blue (±0.25%)</option>
+                  <option value="0.1">Violet (±0.1%)</option>
+                  <option value="5">Gold (±5%)</option>
+                  <option value="10">Silver (±10%)</option>
+                </select>
+              </div>
+            </div>
+            
+            <div className="bg-ink/5 border-2 border-ink p-4 text-center mb-4">
+              <div className="font-mono text-2xl font-bold">
+                {calculateResistor()}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2 justify-end border-t-2 border-ink/20 pt-4">
+              <button onClick={clearResistor} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                <Trash2 size={12} /> Clear
+              </button>
+              <button onClick={copyResistor} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                {copiedResistor ? <CheckCircle2 size={12} /> : <Copy size={12} />} {copiedResistor ? "Copied" : "Copy"}
+              </button>
+              <button onClick={exportResistor} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                <Download size={12} /> Export
               </button>
             </div>
           </div>
@@ -109,24 +281,10 @@ export function EngineeringLab() {
               Theoretical calculations often assume ideal components, but real-world engineering requires accounting for tolerances. A 1kΩ resistor with a 5% tolerance can measure anywhere from 950Ω to 1050Ω. In sensitive analog circuits, this margin of error can drastically shift operating points. Similarly, electrolytic capacitors can have tolerances as loose as ±20%, affecting timing circuits and filter cutoffs. Always measure critical components before soldering and design with worst-case scenarios in mind.
             </p>
             <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
-              <p className="font-serif text-sm font-bold text-red-800">
-                Safety Warning: How NOT to use: Not for life-critical, medical, or aerospace hardware without manual verification.
+              <p className="font-serif text-sm font-bold text-ink">
+                Safety Warning: How NOT to use: Not for life-critical, medical, or illegal activities.
               </p>
             </div>
-          </div>
-
-          {/* Placeholder for other tools */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-             <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] opacity-70">
-                <h3 className="text-xl font-black font-serif uppercase tracking-tighter mb-2">Resistor Color Code</h3>
-                <p className="font-sans text-sm text-ink/80 mb-4">Tool currently undergoing calibration.</p>
-                <div className="h-24 bg-ink/5 border border-ink/20 flex items-center justify-center font-mono text-xs">OFFLINE</div>
-             </div>
-             <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] opacity-70">
-                <h3 className="text-xl font-black font-serif uppercase tracking-tighter mb-2">Capacitor Code</h3>
-                <p className="font-sans text-sm text-ink/80 mb-4">Tool currently undergoing calibration.</p>
-                <div className="h-24 bg-ink/5 border border-ink/20 flex items-center justify-center font-mono text-xs">OFFLINE</div>
-             </div>
           </div>
 
         </div>

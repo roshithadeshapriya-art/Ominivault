@@ -10,7 +10,7 @@ export function AboutUs() {
       className="max-w-4xl mx-auto space-y-12 pb-16"
     >
       <header className="border-b-4 border-ink pb-8 mb-12">
-        <h1 className="font-serif font-black text-5xl md:text-7xl tracking-tighter uppercase mb-4 text-blue-600">
+        <h1 className="font-serif font-black text-5xl md:text-7xl tracking-tighter uppercase mb-4 text-ink">
           About Us
         </h1>
         <p className="font-serif text-xl md:text-2xl italic text-ink/80 leading-relaxed">
@@ -34,7 +34,7 @@ export function AboutUs() {
         <div className="flex flex-col md:flex-row gap-8 items-start">
           <div className="w-full md:w-1/3 shrink-0">
             <div className="aspect-[3/4] bg-ink/5 border-2 border-ink p-2 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-blue-600/10 mix-blend-multiply group-hover:bg-transparent transition-colors duration-500 z-10" />
+              <div className="absolute inset-0 bg-ink/10 mix-blend-multiply group-hover:bg-transparent transition-colors duration-500 z-10" />
               <img 
                 src="https://picsum.photos/seed/bibi-engineer/600/800?grayscale" 
                 alt="Roshitha - Founder of The Temporary" 
@@ -48,7 +48,7 @@ export function AboutUs() {
           </div>
           <div className="w-full md:w-2/3 space-y-4">
             <p className="font-sans text-lg leading-relaxed text-ink/90">
-              Founded by <strong className="font-serif font-bold text-blue-600">Roshitha</strong>, an Electronics Engineering student transitioning from Sri Lanka to China in March 2026.
+              Founded by <strong className="font-serif font-bold text-ink">Roshitha</strong>, an Electronics Engineering student currently in Sri Lanka, moving to China in May 2026. This platform is a high-utility bridge for data, news, and engineering precision.
             </p>
             <p className="font-sans text-lg leading-relaxed text-ink/90">
               Driven by a passion for hardware architecture and global connectivity, Roshitha recognized the need for a unified platform that caters to the specific daily requirements of an engineering student navigating international borders.
@@ -69,7 +69,7 @@ export function AboutUs() {
         </p>
       </section>
 
-      <section className="space-y-6 bg-ink text-white p-8 md:p-12 border-l-8 border-blue-600">
+      <section className="space-y-6 bg-ink text-white p-8 md:p-12 border-l-8 border-white/20">
         <h2 className="font-serif font-bold text-2xl uppercase tracking-widest border-b-2 border-white/20 pb-2 mb-6">
           The Commitment
         </h2>

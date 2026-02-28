@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ExternalLink, RefreshCw, AlertTriangle } from "lucide-react";
 import { AdContainer } from "../components/AdContainer";
 import { fetchNews, Article } from "../services/newsService";
+import { Helmet } from "react-helmet-async";
 
 export function GlobalBriefing() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -29,23 +30,34 @@ export function GlobalBriefing() {
 
   return (
     <div className="space-y-8">
+      <Helmet>
+        <title>The Temporary | Global Briefing</title>
+        <meta name="description" content="Global news, weather conditions, and currency exchange rates tailored for the international engineering student's global transition." />
+      </Helmet>
       <div className="border-b-4 border-ink pb-6 mb-8 text-center relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4">
-          <span className="text-red-700 font-serif font-bold tracking-widest text-sm uppercase">Latest Edition</span>
+          <span className="text-ink font-serif font-bold tracking-widest text-sm uppercase">Latest Edition</span>
         </div>
-        <h1 className="text-5xl md:text-7xl font-black font-serif uppercase tracking-tighter mb-2 mt-4 text-blue-600">Global Briefing</h1>
+        <h1 className="text-5xl md:text-7xl font-black font-serif uppercase tracking-tighter mb-2 mt-4 text-ink">Global Briefing</h1>
         <p className="font-serif italic text-xl">Technology, Business, Government & Privacy</p>
       </div>
 
       {/* Weather Widget */}
-      <div className="flex justify-between items-center mb-4 border-y-2 border-ink py-2 px-4 bg-white/50">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-4 border-y-2 border-ink py-2 px-4 bg-white/50 gap-4">
         <div className="font-serif text-sm uppercase tracking-widest font-bold">
           Local Conditions
         </div>
-        <div className="flex space-x-6 font-mono text-sm">
-          <span>Temp: 72°F</span>
-          <span>Humidity: 45%</span>
-          <span>Sky: Clear</span>
+        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 font-mono text-sm">
+          <div className="flex space-x-4">
+            <span className="font-bold text-blue-600">Colombo:</span>
+            <span>88°F</span>
+            <span>Hum: 78%</span>
+          </div>
+          <div className="flex space-x-4">
+            <span className="font-bold text-blue-600">Hangzhou:</span>
+            <span>62°F</span>
+            <span>Hum: 55%</span>
+          </div>
         </div>
       </div>
 
@@ -61,8 +73,8 @@ export function GlobalBriefing() {
           Environmental factors play a crucial role in electronic design and testing. High humidity can lead to moisture absorption in PCB substrates, affecting impedance and potentially causing short circuits in high-density designs. Conversely, extremely low humidity increases the risk of Electrostatic Discharge (ESD), which can instantly destroy sensitive CMOS components. Temperature fluctuations also impact the performance of TTL logic gates and can cause thermal runaway in power components. Monitoring local conditions is an essential first step before powering up any experimental breadboard.
         </p>
         <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
-          <p className="font-serif text-sm font-bold text-red-800">
-            Safety Warning: How NOT to use: Not for life-safety emergency alerts.
+          <p className="font-serif text-sm font-bold text-ink">
+            Safety Warning: How NOT to use: Not for life-critical, medical, or illegal activities.
           </p>
         </div>
       </div>
@@ -242,7 +254,7 @@ export function GlobalBriefing() {
               <ul className="space-y-3 font-mono text-sm">
                 <li className="flex justify-between border-b border-ink/20 pb-2">
                   <span className="text-ink/80">NVIDIA (NVDA)</span>
-                  <span className="font-bold text-green-600">▲ 1.2%</span>
+                  <span className="font-bold text-ink">▲ 1.2%</span>
                 </li>
                 <li className="flex justify-between border-b border-ink/20 pb-2">
                   <span className="text-ink/80">TSMC (TSM)</span>
@@ -250,7 +262,7 @@ export function GlobalBriefing() {
                 </li>
                 <li className="flex justify-between border-b border-ink/20 pb-2">
                   <span>Silicon Wafers (300mm)</span>
-                  <span className="font-bold text-red-600">▲ $124.50</span>
+                  <span className="font-bold text-ink">▲ $124.50</span>
                 </li>
                 <li className="flex justify-between border-b border-ink/20 pb-2">
                   <span>NAND Flash (per GB)</span>
@@ -291,25 +303,7 @@ export function GlobalBriefing() {
         <div className="mt-12 border-t-4 border-ink pt-8">
           <h3 className="text-3xl font-black font-serif uppercase tracking-tighter mb-6 text-center">Global Exchange</h3>
           
-          <div className="my-8 text-center text-xs font-mono text-ink/50 border border-dashed border-ink/30 p-4">
-            AD_SPACE_OPTIMIZED
-          </div>
-
-          <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] mb-8">
-            <h2 className="text-2xl font-black font-serif uppercase tracking-tighter mb-4 text-blue-600">
-              The International Engineer's Guide to Forex
-            </h2>
-            <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
-              Sourcing components globally requires a keen understanding of currency fluctuations. When purchasing bulk semiconductors or custom PCBs from Shenzhen, transactions are often negotiated in USD but settled based on the CNY exchange rate. A slight shift in the USD/CNY pair can significantly impact the BOM (Bill of Materials) cost for a production run. Similarly, European components (EUR) or local assembly in Sri Lanka (LKR) require constant monitoring to optimize procurement strategies and maintain project budgets.
-            </p>
-            <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
-              <p className="font-serif text-sm font-bold text-red-800">
-                Safety Warning: How NOT to use: For informational purposes only. Not for high-frequency trading.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
             <div className="lg:col-span-9 overflow-x-auto">
               <table className="w-full text-left border-collapse border border-ink bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
                 <thead>
@@ -401,6 +395,24 @@ export function GlobalBriefing() {
                   label="" 
                 />
               </div>
+            </div>
+          </div>
+
+          <div className="my-8 text-center text-xs font-mono text-ink/50 border border-dashed border-ink/30 p-4">
+            AD_SPACE_OPTIMIZED
+          </div>
+
+          <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] mb-8">
+            <h2 className="text-2xl font-black font-serif uppercase tracking-tighter mb-4 text-blue-600">
+              The International Engineer's Guide to Forex
+            </h2>
+            <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
+              Sourcing components globally requires a keen understanding of currency fluctuations. When purchasing bulk semiconductors or custom PCBs from Shenzhen, transactions are often negotiated in USD but settled based on the CNY exchange rate. A slight shift in the USD/CNY pair can significantly impact the BOM (Bill of Materials) cost for a production run. Similarly, European components (EUR) or local assembly in Sri Lanka (LKR) require constant monitoring to optimize procurement strategies and maintain project budgets.
+            </p>
+            <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
+              <p className="font-serif text-sm font-bold text-red-800">
+                Safety Warning: How NOT to use: Not for life-critical, medical, or illegal activities.
+              </p>
             </div>
           </div>
         </div>

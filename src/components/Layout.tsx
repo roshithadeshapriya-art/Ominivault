@@ -6,19 +6,20 @@ import { monetizationConfig } from "../monetizationConfig";
 
 export function Layout() {
   return (
-    <div className="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen flex flex-col selection:bg-ink selection:text-white">
       <header className="sticky top-0 z-50 bg-[#F9F7F2]/90 backdrop-blur-md border-b-4 border-ink print:hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center py-4 md:h-24 gap-4 md:gap-0">
             <div className="flex-shrink-0 flex items-center">
-              <span className="font-serif font-black text-4xl tracking-tighter uppercase text-blue-600">The Temporary</span>
+              <span className="font-serif font-black text-4xl tracking-tighter uppercase text-ink">The Temporary</span>
             </div>
             <nav className="flex flex-wrap justify-center gap-2">
               <NavLink to="/" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`} end>Home</NavLink>
               <NavLink to="/global-briefing" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Global Briefing</NavLink>
               <NavLink to="/engineering-lab" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Engineering Lab</NavLink>
+              <NavLink to="/data-forge" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Data Forge</NavLink>
+              <NavLink to="/linguistic-hub" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Linguistic Hub</NavLink>
               <NavLink to="/about-us" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>About Us</NavLink>
-              <NavLink to="/contact" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Contact</NavLink>
             </nav>
           </div>
           <NewspaperClock />
