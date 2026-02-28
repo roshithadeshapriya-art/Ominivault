@@ -11,15 +11,14 @@ export function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center py-4 md:h-24 gap-4 md:gap-0">
             <div className="flex-shrink-0 flex items-center">
-              <span className="font-serif font-black text-4xl tracking-tighter uppercase text-blue-600">Temporary</span>
+              <span className="font-serif font-black text-4xl tracking-tighter uppercase text-blue-600">The Temporary</span>
             </div>
             <nav className="flex flex-wrap justify-center gap-2">
-              <NavLink to="/" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`} end>Temporary Email</NavLink>
+              <NavLink to="/" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`} end>Home</NavLink>
               <NavLink to="/global-briefing" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Global Briefing</NavLink>
-              <NavLink to="/test-lab" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Card Testing Lab</NavLink>
-              <NavLink to="/code-studio" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>QR & Barcode Studio</NavLink>
-              <NavLink to="/data-generator" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Public Records</NavLink>
-              <NavLink to="/earn-center" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Earn Credits</NavLink>
+              <NavLink to="/engineering-lab" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Engineering Lab</NavLink>
+              <NavLink to="/about-us" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>About Us</NavLink>
+              <NavLink to="/contact" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`}>Contact</NavLink>
             </nav>
           </div>
           <NewspaperClock />
@@ -48,12 +47,14 @@ export function Layout() {
           <AdContainer className="h-24 w-full mb-8" format="auto" />
           
           <div className="flex flex-col items-center justify-center space-y-4">
-            <div className="flex items-center space-x-6">
+            <div className="flex flex-wrap justify-center items-center gap-4 md:space-x-6">
               <NavLink to="/privacy" className="font-serif text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4">Privacy Policy</NavLink>
-              <span className="text-ink/30">•</span>
-              <NavLink to="/terms" className="font-serif text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4">Terms of Service</NavLink>
+              <span className="text-ink/30 hidden md:inline">•</span>
+              <NavLink to="/terms" className="font-serif text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4">Copyright</NavLink>
+              <span className="text-ink/30 hidden md:inline">•</span>
+              <NavLink to="/contact" className="font-serif text-sm uppercase tracking-widest hover:underline decoration-1 underline-offset-4">Contact</NavLink>
             </div>
-            <p className="font-serif text-xs uppercase tracking-widest opacity-70">© 2026 Temporary - A Sri Lankan Digital Exchange Publication.</p>
+            <p className="font-serif text-xs uppercase tracking-widest opacity-70">© 2026 The Temporary - A Sri Lankan Digital Exchange Publication.</p>
           </div>
         </div>
       </footer>

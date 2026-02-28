@@ -49,6 +49,24 @@ export function GlobalBriefing() {
         </div>
       </div>
 
+      <div className="my-8 text-center text-xs font-mono text-ink/50 border border-dashed border-ink/30 p-4">
+        AD_SPACE_OPTIMIZED
+      </div>
+
+      <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] mb-8">
+        <h2 className="text-2xl font-black font-serif uppercase tracking-tighter mb-4 text-blue-600">
+          Climatology & Hardware: Why Weather Data Matters in the Lab
+        </h2>
+        <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
+          Environmental factors play a crucial role in electronic design and testing. High humidity can lead to moisture absorption in PCB substrates, affecting impedance and potentially causing short circuits in high-density designs. Conversely, extremely low humidity increases the risk of Electrostatic Discharge (ESD), which can instantly destroy sensitive CMOS components. Temperature fluctuations also impact the performance of TTL logic gates and can cause thermal runaway in power components. Monitoring local conditions is an essential first step before powering up any experimental breadboard.
+        </p>
+        <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
+          <p className="font-serif text-sm font-bold text-red-800">
+            Safety Warning: How NOT to use: Not for life-safety emergency alerts.
+          </p>
+        </div>
+      </div>
+
       <div className="flex justify-end mb-4">
         <button
           onClick={loadNews}
@@ -272,6 +290,25 @@ export function GlobalBriefing() {
       {!loading && !error && articles.length > 0 && (
         <div className="mt-12 border-t-4 border-ink pt-8">
           <h3 className="text-3xl font-black font-serif uppercase tracking-tighter mb-6 text-center">Global Exchange</h3>
+          
+          <div className="my-8 text-center text-xs font-mono text-ink/50 border border-dashed border-ink/30 p-4">
+            AD_SPACE_OPTIMIZED
+          </div>
+
+          <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] mb-8">
+            <h2 className="text-2xl font-black font-serif uppercase tracking-tighter mb-4 text-blue-600">
+              The International Engineer's Guide to Forex
+            </h2>
+            <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
+              Sourcing components globally requires a keen understanding of currency fluctuations. When purchasing bulk semiconductors or custom PCBs from Shenzhen, transactions are often negotiated in USD but settled based on the CNY exchange rate. A slight shift in the USD/CNY pair can significantly impact the BOM (Bill of Materials) cost for a production run. Similarly, European components (EUR) or local assembly in Sri Lanka (LKR) require constant monitoring to optimize procurement strategies and maintain project budgets.
+            </p>
+            <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
+              <p className="font-serif text-sm font-bold text-red-800">
+                Safety Warning: How NOT to use: For informational purposes only. Not for high-frequency trading.
+              </p>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-9 overflow-x-auto">
               <table className="w-full text-left border-collapse border border-ink bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">

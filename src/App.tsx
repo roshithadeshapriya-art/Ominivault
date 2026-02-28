@@ -9,6 +9,9 @@ import { CodeStudio } from "./pages/CodeStudio";
 import { DataGenerator } from "./pages/DataGenerator";
 import { Privacy } from "./pages/Privacy";
 import { Terms } from "./pages/Terms";
+import { AboutUs } from "./pages/AboutUs";
+import { EngineeringLab } from "./pages/EngineeringLab";
+import { Contact } from "./pages/Contact";
 
 export default function App() {
   return (
@@ -23,6 +26,9 @@ export default function App() {
           <Route path="data-generator" element={<DataGenerator />} />
           <Route path="privacy" element={<Privacy />} />
           <Route path="terms" element={<Terms />} />
+          <Route path="about-us" element={<AboutUs />} />
+          <Route path="engineering-lab" element={<EngineeringLab />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>
     </BrowserRouter>

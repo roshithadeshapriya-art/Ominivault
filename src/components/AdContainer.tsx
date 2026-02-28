@@ -3,7 +3,7 @@ import { monetizationConfig } from "../monetizationConfig";
 
 interface AdContainerProps {
   slotId?: string;
-  format?: "auto" | "fluid" | "rectangle";
+  format?: "auto" | "fluid" | "rectangle" | "vertical";
   responsive?: boolean;
   className?: string;
   isRewarded?: boolean;
