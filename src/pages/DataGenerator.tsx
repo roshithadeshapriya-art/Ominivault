@@ -10,6 +10,26 @@ const AVAILABLE_FIELDS = [
   { id: "company", label: "Company" },
   { id: "jobTitle", label: "Job Title" },
   { id: "uuid", label: "UUID" },
+  { id: "username", label: "Username" },
+  { id: "password", label: "Password" },
+  { id: "birthdate", label: "Birthdate" },
+  { id: "gender", label: "Gender" },
+  { id: "country", label: "Country" },
+  { id: "state", label: "State" },
+  { id: "zipCode", label: "ZIP Code" },
+  { id: "creditCardNumber", label: "Credit Card Number" },
+  { id: "creditCardIssuer", label: "Card Issuer" },
+  { id: "cvv", label: "CVV" },
+  { id: "ipAddress", label: "IP Address" },
+  { id: "macAddress", label: "MAC Address" },
+  { id: "website", label: "Website" },
+  { id: "color", label: "Favorite Color" },
+  { id: "currency", label: "Currency" },
+  { id: "bitcoinAddress", label: "Bitcoin Address" },
+  { id: "vehicle", label: "Vehicle" },
+  { id: "department", label: "Department" },
+  { id: "product", label: "Product" },
+  { id: "isbn", label: "ISBN" },
 ];
 
 const MOCK_DATA = {
@@ -19,7 +39,16 @@ const MOCK_DATA = {
   streets: ["Main St", "Oak Ave", "Pine Ln", "Maple Dr", "Cedar Ct", "Elm St", "Washington Blvd", "Lake Rd", "Hill St", "Park Ave"],
   cities: ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "San Diego", "Dallas", "San Jose"],
   companies: ["Acme Corp", "Globex", "Soylent", "Initech", "Umbrella Corp", "Massive Dynamic", "Stark Industries", "Wayne Enterprises", "Cyberdyne", "Hooli"],
-  jobs: ["Engineer", "Manager", "Director", "Analyst", "Consultant", "Designer", "Developer", "Architect", "Specialist", "Coordinator"]
+  jobs: ["Engineer", "Manager", "Director", "Analyst", "Consultant", "Designer", "Developer", "Architect", "Specialist", "Coordinator"],
+  countries: ["United States", "Canada", "United Kingdom", "Australia", "Germany", "France", "Japan", "Brazil", "India", "South Africa"],
+  states: ["California", "Texas", "New York", "Florida", "Illinois", "Pennsylvania", "Ohio", "Georgia", "North Carolina", "Michigan"],
+  genders: ["Male", "Female", "Non-binary", "Prefer not to say"],
+  cardIssuers: ["Visa", "MasterCard", "American Express", "Discover", "JCB"],
+  colors: ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Black", "White", "Gray", "Pink"],
+  currencies: ["USD", "EUR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "INR", "BRL"],
+  vehicles: ["Toyota Camry", "Honda Civic", "Ford F-150", "Tesla Model 3", "Chevrolet Silverado", "BMW 3 Series", "Audi A4", "Mercedes-Benz C-Class"],
+  departments: ["Sales", "Marketing", "Engineering", "Human Resources", "Finance", "Customer Support", "Legal", "Operations"],
+  products: ["Laptop", "Smartphone", "Headphones", "Monitor", "Keyboard", "Mouse", "Tablet", "Smartwatch", "Camera", "Speaker"]
 };
 
 export function DataGenerator() {
@@ -72,6 +101,67 @@ export function DataGenerator() {
           var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
           return v.toString(16);
         });
+      }
+      if (selectedFields.includes("username")) {
+        row.username = `${firstName.toLowerCase()}${Math.floor(Math.random() * 9999)}`;
+      }
+      if (selectedFields.includes("password")) {
+        row.password = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+      }
+      if (selectedFields.includes("birthdate")) {
+        row.birthdate = new Date(Date.now() - Math.random() * 1000000000000 - 500000000000).toISOString().split('T')[0];
+      }
+      if (selectedFields.includes("gender")) {
+        row.gender = MOCK_DATA.genders[Math.floor(Math.random() * MOCK_DATA.genders.length)];
+      }
+      if (selectedFields.includes("country")) {
+        row.country = MOCK_DATA.countries[Math.floor(Math.random() * MOCK_DATA.countries.length)];
+      }
+      if (selectedFields.includes("state")) {
+        row.state = MOCK_DATA.states[Math.floor(Math.random() * MOCK_DATA.states.length)];
+      }
+      if (selectedFields.includes("zipCode")) {
+        row.zipCode = Math.floor(Math.random() * 90000) + 10000;
+      }
+      if (selectedFields.includes("creditCardNumber")) {
+        row.creditCardNumber = `${Math.floor(Math.random() * 9000) + 1000}-${Math.floor(Math.random() * 9000) + 1000}-${Math.floor(Math.random() * 9000) + 1000}-${Math.floor(Math.random() * 9000) + 1000}`;
+      }
+      if (selectedFields.includes("creditCardIssuer")) {
+        row.creditCardIssuer = MOCK_DATA.cardIssuers[Math.floor(Math.random() * MOCK_DATA.cardIssuers.length)];
+      }
+      if (selectedFields.includes("cvv")) {
+        row.cvv = Math.floor(Math.random() * 900) + 100;
+      }
+      if (selectedFields.includes("ipAddress")) {
+        row.ipAddress = `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+      }
+      if (selectedFields.includes("macAddress")) {
+        row.macAddress = Array.from({length: 6}, () => Math.floor(Math.random() * 255).toString(16).padStart(2, '0')).join(':');
+      }
+      if (selectedFields.includes("website")) {
+        const domain = MOCK_DATA.domains[Math.floor(Math.random() * MOCK_DATA.domains.length)];
+        row.website = `https://www.${domain}`;
+      }
+      if (selectedFields.includes("color")) {
+        row.color = MOCK_DATA.colors[Math.floor(Math.random() * MOCK_DATA.colors.length)];
+      }
+      if (selectedFields.includes("currency")) {
+        row.currency = MOCK_DATA.currencies[Math.floor(Math.random() * MOCK_DATA.currencies.length)];
+      }
+      if (selectedFields.includes("bitcoinAddress")) {
+        row.bitcoinAddress = "1" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      }
+      if (selectedFields.includes("vehicle")) {
+        row.vehicle = MOCK_DATA.vehicles[Math.floor(Math.random() * MOCK_DATA.vehicles.length)];
+      }
+      if (selectedFields.includes("department")) {
+        row.department = MOCK_DATA.departments[Math.floor(Math.random() * MOCK_DATA.departments.length)];
+      }
+      if (selectedFields.includes("product")) {
+        row.product = MOCK_DATA.products[Math.floor(Math.random() * MOCK_DATA.products.length)];
+      }
+      if (selectedFields.includes("isbn")) {
+        row.isbn = `${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 10)}-${Math.floor(Math.random() * 90000) + 10000}-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 10)}`;
       }
       newData.push(row);
     }
@@ -148,7 +238,7 @@ export function DataGenerator() {
             
             <div className="space-y-4 mb-8">
               <h3 className="font-serif font-bold text-sm uppercase tracking-widest text-ink/70">Select Fields</h3>
-              <div className="space-y-2">
+              <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 border border-ink/20 p-2">
                 {AVAILABLE_FIELDS.map(field => (
                   <button
                     key={field.id}

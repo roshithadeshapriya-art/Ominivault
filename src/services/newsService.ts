@@ -42,7 +42,7 @@ export const fetchNews = async (cacheBuster?: string): Promise<Article[]> => {
     const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
     
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    const timeoutId = setTimeout(() => controller.abort(new Error("Timeout")), 15000);
 
     const res = await fetch(proxyUrl, { signal: controller.signal });
     clearTimeout(timeoutId);
