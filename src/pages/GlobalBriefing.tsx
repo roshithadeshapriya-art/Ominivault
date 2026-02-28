@@ -12,7 +12,7 @@ export function GlobalBriefing() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchNews();
+      const data = await fetchNews(Date.now().toString());
       setArticles(data);
     } catch (err: any) {
       setError(err.message || "Failed to fetch news. Please check your API key.");
@@ -26,13 +26,14 @@ export function GlobalBriefing() {
   }, []);
 
   const topStory = articles[0];
-  const secondaryStories = articles.slice(1, 4);
-  const remainingStories = articles.slice(4);
 
   return (
     <div className="space-y-8">
-      <div className="border-b-4 border-ink pb-6 mb-8 text-center">
-        <h1 className="text-5xl md:text-7xl font-black font-serif uppercase tracking-tighter mb-2">Global Briefing</h1>
+      <div className="border-b-4 border-ink pb-6 mb-8 text-center relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4">
+          <span className="text-red-700 font-serif font-bold tracking-widest text-sm uppercase">Latest Edition</span>
+        </div>
+        <h1 className="text-5xl md:text-7xl font-black font-serif uppercase tracking-tighter mb-2 mt-4">Global Briefing</h1>
         <p className="font-serif italic text-xl">Technology, Business, Government & Privacy</p>
       </div>
 
@@ -43,7 +44,7 @@ export function GlobalBriefing() {
           className="text-sm font-serif uppercase tracking-widest hover:underline flex items-center gap-1 disabled:opacity-50 disabled:no-underline"
         >
           <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
-          Refresh Dispatch
+          Refresh Press
         </button>
       </div>
 
@@ -70,143 +71,115 @@ export function GlobalBriefing() {
             
             {/* Top Story (Double Wide) */}
             {topStory && (
-              <div className="border border-ink p-6 bg-white/50 flex flex-col md:flex-row gap-6 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+              <a href={topStory.url} target="_blank" rel="noopener noreferrer" className="border border-ink p-6 bg-white/50 flex flex-col md:flex-row gap-6 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] hover:bg-white transition-colors block">
                 <div className="flex-1">
                   <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-3 inline-block">
                     Breaking News • {new Date(topStory.publishedAt).toLocaleDateString()}
                   </div>
-                  <a href={topStory.url} target="_blank" rel="noopener noreferrer" className="block hover:opacity-80 transition-opacity">
-                    <h2 className="text-5xl md:text-7xl font-black font-serif leading-none mb-6 tracking-tighter">
-                      {topStory.title}
-                    </h2>
-                  </a>
-                  <a 
-                    href={topStory.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-serif font-bold uppercase tracking-widest text-sm hover:underline decoration-2 underline-offset-4"
-                  >
+                  <h2 className="text-5xl md:text-7xl font-black font-serif leading-none mb-6 tracking-tighter">
+                    {topStory.title}
+                  </h2>
+                  {topStory.description && (
+                    <p className="font-sans text-lg md:text-xl leading-relaxed mb-6 opacity-80">
+                      {topStory.description}
+                    </p>
+                  )}
+                  <div className="inline-flex items-center gap-2 font-serif font-bold uppercase tracking-widest text-sm decoration-2 underline-offset-4">
                     Read More <ExternalLink size={14} />
-                  </a>
+                  </div>
                 </div>
                 <div className="w-full md:w-2/5 shrink-0">
-                  <a href={topStory.url} target="_blank" rel="noopener noreferrer" className="block h-full">
-                    <img 
-                      src={topStory.image || "https://picsum.photos/seed/newspaper/800/600?grayscale&blur=2"} 
-                      alt={topStory.title}
-                      className="w-full h-full object-cover border border-ink grayscale hover:grayscale-0 transition-all duration-500"
-                      referrerPolicy="no-referrer"
-                    />
-                  </a>
+                  <img 
+                    src={topStory.image || "https://picsum.photos/seed/newspaper/800/600?grayscale&blur=2"} 
+                    alt={topStory.title}
+                    className="w-full h-full object-cover border border-ink grayscale hover:grayscale-0 transition-all duration-500"
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
-              </div>
+              </a>
             )}
 
-            {/* Native Ad Slot 1 (After 1st story) */}
-            <div className="border border-ink p-4 bg-white/30">
-              <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-3 text-center opacity-60">
-                Sponsored Content
-              </div>
-              <AdContainer 
-                className="w-full h-[120px]" 
-                format="fluid" 
-                label="" 
-              />
-            </div>
-
-            {/* Secondary Stories (Masonry Grid) */}
-            {secondaryStories.length > 0 && (
-              <div className="columns-1 md:columns-2 gap-6 space-y-6">
-                {secondaryStories.map((article, idx) => (
-                  <div key={idx} className="break-inside-avoid border border-ink p-5 bg-white/50 flex flex-col shadow-[2px_2px_0px_0px_rgba(20,20,20,1)]">
-                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="block mb-4">
+            {/* All other stories (Masonry Grid) */}
+            <div className="columns-1 md:columns-2 gap-6 space-y-6">
+              {articles.slice(1).map((article, idx) => {
+                const globalIdx = idx + 1; // 1-based index (topStory is 0)
+                return (
+                  <React.Fragment key={idx}>
+                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="break-inside-avoid border border-ink p-5 bg-white/50 flex flex-col shadow-[2px_2px_0px_0px_rgba(20,20,20,1)] hover:bg-white transition-colors block">
                       <img 
                         src={article.image || "https://picsum.photos/seed/newspaper/800/600?grayscale&blur=2"} 
                         alt={article.title}
-                        className="w-full h-40 object-cover border border-ink grayscale hover:grayscale-0 transition-all duration-300"
+                        className="w-full h-40 object-cover border border-ink grayscale hover:grayscale-0 transition-all duration-300 mb-4"
                         referrerPolicy="no-referrer"
                       />
-                    </a>
-                    <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-3 flex justify-between">
-                      <span>{article.source.name}</span>
-                      <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
-                    </div>
-                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="block hover:opacity-80 transition-opacity mb-4">
-                      <h3 className="text-2xl font-black font-serif leading-tight">
+                      <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-3 flex justify-between">
+                        <span>{article.source.name}</span>
+                        <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
+                      </div>
+                      <h3 className="text-2xl font-black font-serif leading-tight mb-3">
                         {article.title}
                       </h3>
+                      {article.description && (
+                        <p className="font-sans text-sm leading-relaxed mb-4 opacity-80">
+                          {article.description}
+                        </p>
+                      )}
+                      <div className="inline-flex items-center gap-2 font-serif font-bold uppercase tracking-widest text-xs decoration-2 underline-offset-4 mt-auto">
+                        Read More <ExternalLink size={12} />
+                      </div>
                     </a>
-                    <a 
-                      href={article.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 font-serif font-bold uppercase tracking-widest text-xs hover:underline decoration-2 underline-offset-4 mt-auto"
-                    >
-                      Read More <ExternalLink size={12} />
-                    </a>
-                  </div>
-                ))}
 
-                {/* Filler Snippet 1 */}
-                <div className="break-inside-avoid border-y-2 border-ink py-4 bg-transparent flex flex-col">
-                  <h4 className="text-lg font-bold font-serif leading-tight mb-2 italic">
-                    Opinion: The Future of Digital Privacy
-                  </h4>
-                  <p className="font-serif text-xs leading-relaxed opacity-70 text-justify">
-                    As we navigate the complexities of the modern web, the question of who owns our data becomes increasingly paramount. Recent legislative efforts have attempted to curb the voracious appetite of data brokers, yet the technological arms race continues unabated. It is incumbent upon users to remain vigilant.
-                  </p>
-                </div>
-              </div>
-            )}
+                    {/* Ad after 2nd item (globalIdx === 1) */}
+                    {globalIdx === 1 && (
+                      <div className="break-inside-avoid border border-ink p-4 bg-white/30 my-6">
+                        <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-3 text-center opacity-60">
+                          Sponsored
+                        </div>
+                        <AdContainer 
+                          className="w-full h-[250px]" 
+                          format="fluid" 
+                          label="" 
+                        />
+                      </div>
+                    )}
 
-            {/* Large Leaderboard Ad */}
-            <div className="py-6 border-y-4 border-double border-ink my-8">
-              <div className="text-[10px] uppercase tracking-widest font-serif font-bold pb-2 text-center opacity-60">
-                Advertisement
+                    {/* Ad after 5th item (globalIdx === 4) */}
+                    {globalIdx === 4 && (
+                      <div className="break-inside-avoid border border-ink p-4 bg-white/30 my-6">
+                        <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-3 text-center opacity-60">
+                          Sponsored
+                        </div>
+                        <AdContainer 
+                          className="w-full h-[250px]" 
+                          format="fluid" 
+                          label="" 
+                        />
+                      </div>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+
+              {/* Filler Snippet 1 */}
+              <div className="break-inside-avoid border-y-2 border-ink py-4 bg-transparent flex flex-col">
+                <h4 className="text-lg font-bold font-serif leading-tight mb-2 italic">
+                  Opinion: The Future of Digital Privacy
+                </h4>
+                <p className="font-serif text-xs leading-relaxed opacity-70 text-justify">
+                  As we navigate the complexities of the modern web, the question of who owns our data becomes increasingly paramount. Recent legislative efforts have attempted to curb the voracious appetite of data brokers, yet the technological arms race continues unabated. It is incumbent upon users to remain vigilant.
+                </p>
               </div>
-              <AdContainer 
-                className="w-full h-[90px] md:h-[250px]" 
-                format="auto" 
-                label="" 
-              />
+
+              {/* Filler Snippet 2 */}
+              <div className="break-inside-avoid border border-ink p-4 bg-ink text-parchment flex flex-col shadow-[2px_2px_0px_0px_rgba(20,20,20,1)]">
+                <h4 className="text-md font-bold font-serif leading-tight mb-2 uppercase tracking-widest">
+                  Briefly Noted
+                </h4>
+                <p className="font-serif text-xs leading-relaxed opacity-90 text-justify">
+                  Markets rallied late Tuesday following unexpected announcements from the central bank regarding interest rate stabilization. Meanwhile, tech sector layoffs appear to be slowing down after a tumultuous quarter. Analysts remain cautiously optimistic for the upcoming fiscal year.
+                </p>
+              </div>
             </div>
-
-            {/* Remaining Stories (Masonry Grid) */}
-            {remainingStories.length > 0 && (
-              <div className="columns-1 md:columns-2 gap-6 space-y-6">
-                {remainingStories.map((article, idx) => (
-                  <div key={idx} className="break-inside-avoid border border-ink p-4 bg-white/50 flex flex-col shadow-[2px_2px_0px_0px_rgba(20,20,20,1)]">
-                    <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-2 flex justify-between">
-                      <span>{article.source.name}</span>
-                      <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
-                    </div>
-                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="block hover:opacity-80 transition-opacity mb-3">
-                      <h4 className="text-xl font-bold font-serif leading-tight">
-                        {article.title}
-                      </h4>
-                    </a>
-                    <a 
-                      href={article.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 font-serif font-bold uppercase tracking-widest text-[10px] hover:underline mt-auto"
-                    >
-                      Read More <ExternalLink size={10} />
-                    </a>
-                  </div>
-                ))}
-
-                {/* Filler Snippet 2 */}
-                <div className="break-inside-avoid border border-ink p-4 bg-ink text-parchment flex flex-col shadow-[2px_2px_0px_0px_rgba(20,20,20,1)]">
-                  <h4 className="text-md font-bold font-serif leading-tight mb-2 uppercase tracking-widest">
-                    Briefly Noted
-                  </h4>
-                  <p className="font-serif text-xs leading-relaxed opacity-90 text-justify">
-                    Markets rallied late Tuesday following unexpected announcements from the central bank regarding interest rate stabilization. Meanwhile, tech sector layoffs appear to be slowing down after a tumultuous quarter. Analysts remain cautiously optimistic for the upcoming fiscal year.
-                  </p>
-                </div>
-              </div>
-            )}
 
           </div>
 

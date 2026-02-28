@@ -1,23 +1,20 @@
-# 🗞️ OmniVault: The Digital Exchange Edition
-> **A vintage-inspired, newspaper-style utility platform for developers and electronics engineers.**
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-OmniVault is a full-stack digital hub designed to bridge the gap between classic aesthetics and modern development tools. It features a curated "Global Briefing" news engine and a specialized "Electronics Lab."
+# Run and deploy your AI Studio app
 
-## 🛠️ Integrated Utility Suite
-* **Global Briefing:** Real-time tech and business news fetched via Google News RSS with a custom CORS proxy.
-* **Electronics Lab:** Specialized calculators for Ohm's Law ($V = I \times R$) and engineering workflows.
-* **Developer Toolkit:** * **Temp Mail:** Secure, disposable inboxes for testing.
-    * **Card Lab:** Luhn-validated data for payment gateway stress testing.
-    * **Sample Data Gen:** Professional JSON/CSV dummy data generation.
+This contains everything you need to run your app locally.
 
-## 🚀 Technical Architecture
-* **Frontend:** React 18 + Vite (Optimized for Mobile & Desktop)
-* **Backend/Hosting:** Firebase Hosting (Global CDN)
-* **CI/CD:** GitHub Actions (Automated "Push-to-Publish" Pipeline)
-* **Intelligence:** Powered by Gemini 1.5 Flash for dynamic data processing.
+View your app in AI Studio: https://ai.studio/apps/e16615a1-f9dc-41ac-a424-e15403b01710
 
-## ⚖️ License
-Distributed under the **MIT License**. See `LICENSE` for more information.
+## Run Locally
 
----
-*Maintained by BiBi — Electronics Engineering Student (Class of 2026)*
+**Prerequisites:**  Node.js
+
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

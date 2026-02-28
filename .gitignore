@@ -1,21 +1,8 @@
-# Dependencies
 node_modules/
-.pnp
-.pnp.js
-
-# Production Build
-dist/
 build/
-
-# Firebase
-.firebase/
-firebase-debug.log*
-
-# Secrets (IMPORTANT: Keeps your Gemini/GNews keys private)
-.env
-.env.local
-.env.production.local
-
-# System/Debug logs
-npm-debug.log*
+dist/
+coverage/
 .DS_Store
+*.log
+.env*
+!.env.example
