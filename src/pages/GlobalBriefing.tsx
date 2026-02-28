@@ -33,8 +33,20 @@ export function GlobalBriefing() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4">
           <span className="text-red-700 font-serif font-bold tracking-widest text-sm uppercase">Latest Edition</span>
         </div>
-        <h1 className="text-5xl md:text-7xl font-black font-serif uppercase tracking-tighter mb-2 mt-4">Global Briefing</h1>
+        <h1 className="text-5xl md:text-7xl font-black font-serif uppercase tracking-tighter mb-2 mt-4 text-blue-600">Global Briefing</h1>
         <p className="font-serif italic text-xl">Technology, Business, Government & Privacy</p>
+      </div>
+
+      {/* Weather Widget */}
+      <div className="flex justify-between items-center mb-4 border-y-2 border-ink py-2 px-4 bg-white/50">
+        <div className="font-serif text-sm uppercase tracking-widest font-bold">
+          Local Conditions
+        </div>
+        <div className="flex space-x-6 font-mono text-sm">
+          <span>Temp: 72°F</span>
+          <span>Humidity: 45%</span>
+          <span>Sky: Clear</span>
+        </div>
       </div>
 
       <div className="flex justify-end mb-4">
@@ -205,6 +217,34 @@ export function GlobalBriefing() {
               </ul>
             </div>
 
+            <div className="border border-ink p-5 bg-white shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+              <h3 className="font-serif font-black uppercase tracking-widest text-lg border-b-2 border-ink pb-2 mb-4 text-center text-blue-600">
+                Tech Market Pulse
+              </h3>
+              <ul className="space-y-3 font-mono text-sm">
+                <li className="flex justify-between border-b border-ink/20 pb-2">
+                  <span className="text-ink/80">NVIDIA (NVDA)</span>
+                  <span className="font-bold text-green-600">▲ 1.2%</span>
+                </li>
+                <li className="flex justify-between border-b border-ink/20 pb-2">
+                  <span className="text-ink/80">TSMC (TSM)</span>
+                  <span className="font-bold text-green-600">▲ 0.8%</span>
+                </li>
+                <li className="flex justify-between border-b border-ink/20 pb-2">
+                  <span>Silicon Wafers (300mm)</span>
+                  <span className="font-bold text-red-600">▲ $124.50</span>
+                </li>
+                <li className="flex justify-between border-b border-ink/20 pb-2">
+                  <span>NAND Flash (per GB)</span>
+                  <span className="font-bold text-green-600">▼ $0.04</span>
+                </li>
+                <li className="flex justify-between border-b border-ink/20 pb-2">
+                  <span>Lithium (per kg)</span>
+                  <span className="font-bold text-green-600">▼ $14.20</span>
+                </li>
+              </ul>
+            </div>
+
             {/* Filler Snippet 3 (Sidebar) */}
             <div className="border-y border-ink py-4">
               <h4 className="font-serif font-bold text-sm mb-2 italic">From the Archives</h4>
@@ -214,7 +254,7 @@ export function GlobalBriefing() {
             </div>
 
             {/* Sidebar Ad (Right Sidebar) */}
-            <div className="sticky top-28 border border-ink p-4 bg-white/30">
+            <div className="sticky top-32 border border-ink p-4 bg-white/30">
               <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-3 text-center opacity-60">
                 Sponsored Content
               </div>
@@ -223,6 +263,107 @@ export function GlobalBriefing() {
                 format="rectangle" 
                 label="" 
               />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Global Exchange Table */}
+      {!loading && !error && articles.length > 0 && (
+        <div className="mt-12 border-t-4 border-ink pt-8">
+          <h3 className="text-3xl font-black font-serif uppercase tracking-tighter mb-6 text-center">Global Exchange</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className="lg:col-span-9 overflow-x-auto">
+              <table className="w-full text-left border-collapse border border-ink bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+                <thead>
+                  <tr className="bg-ink text-white font-serif uppercase tracking-widest text-sm">
+                    <th className="border border-ink p-3">Currency</th>
+                    <th className="border border-ink p-3">Symbol</th>
+                    <th className="border border-ink p-3">Rate (vs USD)</th>
+                    <th className="border border-ink p-3">Trend</th>
+                  </tr>
+                </thead>
+                <tbody className="font-mono text-sm">
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">US Dollar</td>
+                    <td className="border border-ink p-3">USD</td>
+                    <td className="border border-ink p-3">1.0000</td>
+                    <td className="border border-ink p-3 text-gray-500">-</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">Euro</td>
+                    <td className="border border-ink p-3">EUR</td>
+                    <td className="border border-ink p-3">0.9245</td>
+                    <td className="border border-ink p-3 text-red-600">▲ +0.0012</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">British Pound</td>
+                    <td className="border border-ink p-3">GBP</td>
+                    <td className="border border-ink p-3">0.7850</td>
+                    <td className="border border-ink p-3 text-red-600">▲ +0.0021</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">Japanese Yen</td>
+                    <td className="border border-ink p-3">JPY</td>
+                    <td className="border border-ink p-3">150.25</td>
+                    <td className="border border-ink p-3 text-green-600">▼ -0.15</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">Australian Dollar</td>
+                    <td className="border border-ink p-3">AUD</td>
+                    <td className="border border-ink p-3">1.5230</td>
+                    <td className="border border-ink p-3 text-red-600">▲ +0.0045</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">Canadian Dollar</td>
+                    <td className="border border-ink p-3">CAD</td>
+                    <td className="border border-ink p-3">1.3540</td>
+                    <td className="border border-ink p-3 text-green-600">▼ -0.0010</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">Swiss Franc</td>
+                    <td className="border border-ink p-3">CHF</td>
+                    <td className="border border-ink p-3">0.8820</td>
+                    <td className="border border-ink p-3 text-red-600">▲ +0.0005</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">Indian Rupee</td>
+                    <td className="border border-ink p-3">INR</td>
+                    <td className="border border-ink p-3">82.90</td>
+                    <td className="border border-ink p-3 text-gray-500">-</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">Singapore Dollar</td>
+                    <td className="border border-ink p-3">SGD</td>
+                    <td className="border border-ink p-3">1.3410</td>
+                    <td className="border border-ink p-3 text-green-600">▼ -0.0020</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">Sri Lankan Rupee</td>
+                    <td className="border border-ink p-3">LKR</td>
+                    <td className="border border-ink p-3">305.50</td>
+                    <td className="border border-ink p-3 text-green-600">▼ -0.50</td>
+                  </tr>
+                  <tr className="hover:bg-white transition-colors">
+                    <td className="border border-ink p-3">Chinese Yuan</td>
+                    <td className="border border-ink p-3">CNY</td>
+                    <td className="border border-ink p-3">7.2340</td>
+                    <td className="border border-ink p-3 text-red-600">▲ +0.0150</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="lg:col-span-3">
+              <div className="border border-ink p-4 bg-white/30 h-full min-h-[400px] flex flex-col">
+                <div className="text-[10px] uppercase tracking-widest font-serif font-bold border-b border-ink/30 pb-1 mb-3 text-center opacity-60">
+                  Sponsored Content
+                </div>
+                <AdContainer 
+                  className="w-full flex-1 min-h-[300px]" 
+                  format="vertical" 
+                  label="" 
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -22,7 +22,7 @@ export function Privacy() {
         <section className="space-y-4">
           <h2 className="text-3xl font-black uppercase tracking-widest border-b-2 border-ink pb-2">Data Collection</h2>
           <p>
-            OmniVault operates on a principle of minimal data retention. We utilize your browser's LocalStorage to maintain your session state, preferences, and generated data. 
+            Temporary operates on a principle of minimal data retention. We utilize your browser's LocalStorage to maintain your session state, preferences, and generated data. 
           </p>
           <p>
             <strong>We do not store your personal user data on our own servers.</strong> The information you generate or view during your session remains confined to your local device, ensuring a private and secure experience.

@@ -12,13 +12,13 @@ export function Terms() {
         <section className="space-y-4">
           <h2 className="text-3xl font-black uppercase tracking-widest border-b-2 border-ink pb-2">Copyright & Ownership</h2>
           <p>
-            <strong>© 2026 OmniVault. All rights reserved.</strong>
+            <strong>© 2026 Temporary. All rights reserved.</strong>
           </p>
           <p>
             The content, organization, graphics, design, compilation, magnetic translation, digital conversion, and other matters related to the Site are protected under applicable copyrights, trademarks, and other proprietary rights.
           </p>
           <p>
-            The distinctive "Newspaper" User Interface (UI) design, including its layout, typography choices, and visual aesthetic, is a proprietary creation of OmniVault. Any unauthorized copying, redistribution, use, or publication by you of any such matters or any part of the Site is strictly prohibited.
+            The distinctive "Newspaper" User Interface (UI) design, including its layout, typography choices, and visual aesthetic, is a proprietary creation of Temporary. Any unauthorized copying, redistribution, use, or publication by you of any such matters or any part of the Site is strictly prohibited.
           </p>
         </section>
 
@@ -28,7 +28,7 @@ export function Terms() {
             The tools provided on this platform, specifically the <strong>Card Testing Lab</strong>, are intended strictly for educational, development, and testing purposes.
           </p>
           <p>
-            The generated data does not correspond to real-world financial instruments. <strong>No real transactions are possible</strong> using the information provided by these tools. OmniVault disclaims any liability for the misuse of the generated data. Users are solely responsible for ensuring their use of the tools complies with all applicable laws and regulations.
+            The generated data does not correspond to real-world financial instruments. <strong>No real transactions are possible</strong> using the information provided by these tools. Temporary disclaims any liability for the misuse of the generated data. Users are solely responsible for ensuring their use of the tools complies with all applicable laws and regulations.
           </p>
         </section>
 

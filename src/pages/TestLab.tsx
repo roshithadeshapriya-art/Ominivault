@@ -124,7 +124,7 @@ export function TestLab() {
               <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), repeating-linear-gradient(45deg, #000 25%, #F9F7F2 25%, #F9F7F2 75%, #000 75%, #000)', backgroundPosition: '0 0, 10px 10px', backgroundSize: '20px 20px' }}></div>
               
               <div className="text-center font-serif font-black uppercase tracking-widest text-xl border-b-2 border-ink pb-2 mb-8">
-                Bank of OmniVault
+                Bank of Temporary
               </div>
 
               <div className="space-y-6">

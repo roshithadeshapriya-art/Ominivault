@@ -16,7 +16,7 @@ const FALLBACK_ARTICLES: Article[] = [
     url: "#",
     image: "https://picsum.photos/seed/privacy2026/800/600?grayscale&blur=2",
     publishedAt: new Date().toISOString(),
-    source: { name: "OmniVault Editorial" }
+    source: { name: "Temporary Editorial" }
   },
   {
     title: "Quantum Leap: Why Electronics Engineering is the Most Vital Career of the Decade.",
@@ -24,7 +24,7 @@ const FALLBACK_ARTICLES: Article[] = [
     url: "#",
     image: "https://picsum.photos/seed/engineering/800/600?grayscale&blur=2",
     publishedAt: new Date().toISOString(),
-    source: { name: "OmniVault Editorial" }
+    source: { name: "Temporary Editorial" }
   },
   {
     title: "The Death of Spam: How Temporary Emails Became a Global Standard for Digital Security.",
@@ -32,7 +32,7 @@ const FALLBACK_ARTICLES: Article[] = [
     url: "#",
     image: "https://picsum.photos/seed/spam/800/600?grayscale&blur=2",
     publishedAt: new Date().toISOString(),
-    source: { name: "OmniVault Editorial" }
+    source: { name: "Temporary Editorial" }
   }
 ];
 
