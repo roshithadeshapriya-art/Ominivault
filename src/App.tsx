@@ -1,5 +1,6 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router";
+import ReactGA from "react-ga4";
 import { Layout } from "./components/Layout";
 import { EarnCenter } from "./pages/EarnCenter";
 import { TempMail } from "./pages/TempMail";
@@ -16,11 +17,24 @@ import { EngineeringLab } from "./pages/EngineeringLab";
 import { Contact } from "./pages/Contact";
 import { HelmetProvider } from "react-helmet-async";
 
+ReactGA.initialize("G-HC28Z5E58K");
+
+function AnalyticsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: location.pathname + location.search });
+  }, [location]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
-      <Routes>
+        <AnalyticsTracker />
+        <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<TempMail />} />
           <Route path="global-briefing" element={<GlobalBriefing />} />
