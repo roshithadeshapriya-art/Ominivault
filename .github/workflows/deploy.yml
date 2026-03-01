@@ -13,8 +13,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install Ingredients
-        run: npm install --legacy-peer-deps
+      - name: Trash Bad AI Ingredients
+        run: rm -rf node_modules package-lock.json
+      - name: Install Fresh Ingredients
+        run: npm install --force --legacy-peer-deps
       - name: Bake the Site
         run: CI=false npm run build
       - name: Send to Hostinger Branch
