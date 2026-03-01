@@ -1,0 +1,25 @@
+name: Hostinger Production Build
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Ingredients
+        run: npm install --legacy-peer-deps
+      - name: Bake the Site
+        run: CI=false npm run build
+      - name: Send to Hostinger Branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: hostinger-ready
