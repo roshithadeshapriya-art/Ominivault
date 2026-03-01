@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
-import ReactGA from "react-ga4";
 import { Layout } from "./components/Layout";
 import { EarnCenter } from "./pages/EarnCenter";
 import { TempMail } from "./pages/TempMail";
@@ -17,13 +16,22 @@ import { EngineeringLab } from "./pages/EngineeringLab";
 import { Contact } from "./pages/Contact";
 import { HelmetProvider } from "react-helmet-async";
 
-ReactGA.initialize("G-HC28Z5E58K");
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 
 function AnalyticsTracker() {
   const location = useLocation();
 
   useEffect(() => {
-    ReactGA.send({ hitType: "pageview", page: location.pathname + location.search });
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('config', 'G-HC28Z5E58K', {
+        page_path: location.pathname + location.search,
+        page_title: document.title
+      });
+    }
   }, [location]);
 
   return null;
