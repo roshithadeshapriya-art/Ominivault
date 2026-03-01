@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router";
 import { AdContainer } from "./AdContainer";
 import { NewspaperClock } from "./NewspaperClock";
 import { monetizationConfig } from "../monetizationConfig";
 
 export function Layout() {
+  const [visitorCount, setVisitorCount] = useState(4021);
+
+  useEffect(() => {
+    const storedCount = localStorage.getItem("visitor_count");
+    let count = storedCount ? parseInt(storedCount, 10) : 4021;
+    
+    if (!sessionStorage.getItem("visited")) {
+      count += 1;
+      localStorage.setItem("visitor_count", count.toString());
+      sessionStorage.setItem("visited", "true");
+    }
+    
+    setVisitorCount(count);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col selection:bg-ink selection:text-white">
-      <header className="sticky top-0 z-50 bg-[#F9F7F2]/90 backdrop-blur-md border-b-4 border-ink print:hidden">
+      <header className="sticky top-0 z-50 bg-[#fdfbf7]/90 backdrop-blur-md border-b-4 border-ink print:hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center py-4 md:h-24 gap-4 md:gap-0">
-            <div className="flex-shrink-0 flex items-center">
+            <div className="flex-shrink-0 flex flex-col items-center md:items-start">
               <span className="font-serif font-black text-4xl tracking-tighter uppercase text-ink">The Temporary</span>
+              <span className="font-mono text-xs font-bold tracking-widest uppercase mt-1">Total Visitors: {visitorCount.toString().padStart(6, '0')}</span>
             </div>
             <nav className="flex flex-wrap justify-center gap-2">
               <NavLink to="/" className={({isActive}) => `font-serif font-bold text-xs md:text-sm uppercase tracking-widest px-3 py-1.5 border transition-colors ${isActive ? 'bg-ink text-white border-ink' : 'bg-transparent text-ink border-ink hover:bg-ink/5'}`} end>Home</NavLink>

@@ -302,7 +302,7 @@ export function TempMail() {
             <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
               These systems typically operate by generating a unique cryptographic hash or random string mapped to a temporary domain. The mail server routes incoming SMTP traffic to this temporary address, storing it in volatile memory or a short-lived database. Once the session expires or the user manually destroys the inbox, all associated data is permanently purged, ensuring zero residual footprint.
             </p>
-            <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
+            <div className="bg-ink/5 border-l-4 border-ink p-4 mt-4">
               <p className="font-serif text-sm font-bold text-ink">
                 Safety Warning: How NOT to use: Not for life-critical, medical, or illegal activities.
               </p>

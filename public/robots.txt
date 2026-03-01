@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thetemporary.store/sitemap.xml
+Sitemap: https://temptool.org/sitemap.xml

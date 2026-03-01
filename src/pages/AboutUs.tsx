@@ -48,7 +48,7 @@ export function AboutUs() {
           </div>
           <div className="w-full md:w-2/3 space-y-4">
             <p className="font-sans text-lg leading-relaxed text-ink/90">
-              Founded by <strong className="font-serif font-bold text-ink">Roshitha</strong>, an Electronics Engineering student currently in Sri Lanka, moving to China in May 2026. This platform is a high-utility bridge for data, news, and engineering precision.
+              Founded by <strong className="font-serif font-bold text-ink">Roshitha</strong>, an Electronics Engineering student. The Temporary is a technical utility suite built for developers and researchers.
             </p>
             <p className="font-sans text-lg leading-relaxed text-ink/90">
               Driven by a passion for hardware architecture and global connectivity, Roshitha recognized the need for a unified platform that caters to the specific daily requirements of an engineering student navigating international borders.

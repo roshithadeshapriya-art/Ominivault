@@ -60,7 +60,7 @@ const MOCK_DATA = {
 };
 
 export function DataForge() {
-  const [qrText, setQrText] = useState("https://thetemporary.store");
+  const [qrText, setQrText] = useState("https://temptool.org");
   const [barcodeText, setBarcodeText] = useState("123456789012");
   const [copiedQr, setCopiedQr] = useState(false);
   const [copiedBarcode, setCopiedBarcode] = useState(false);
@@ -364,6 +364,9 @@ export function DataForge() {
                       <option value="json">JSON</option>
                       <option value="txt">TXT</option>
                     </select>
+                    <button onClick={() => setGeneratedData([])} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                      <Trash2 size={12} /> Clear
+                    </button>
                     <button onClick={copyData} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
                       {copied ? <CheckCircle2 size={12} /> : <Copy size={12} />} {copied ? "Copied" : "Copy"}
                     </button>
@@ -415,7 +418,7 @@ export function DataForge() {
             <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
               However, the generation of synthetic data must be handled responsibly. It should never be used to deceive systems, bypass verification protocols, or create fraudulent identities. The tools provided here—including QR and Barcode generators—are strictly for development, testing, and educational purposes.
             </p>
-            <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
+            <div className="bg-ink/5 border-l-4 border-ink p-4 mt-4">
               <p className="font-serif text-sm font-bold text-ink">
                 Safety Warning: How NOT to use: Not for life-critical, medical, or illegal activities.
               </p>

@@ -113,7 +113,7 @@ export function EarnCenter() {
                 </div>
                 
                 {isPaused ? (
-                  <div className="border-2 border-ink p-4 bg-red-50 text-red-900 font-serif font-bold flex items-center gap-3">
+                  <div className="border-2 border-ink p-4 bg-ink/5 text-ink font-serif font-bold flex items-center gap-3">
                     <AlertTriangle size={24} />
                     {alertMsg}
                   </div>

@@ -122,7 +122,7 @@ export function EngineeringLab() {
                   type="number" 
                   value={voltage}
                   onChange={(e) => setVoltage(e.target.value)}
-                  className="w-full border-2 border-ink p-2 font-mono bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full border-2 border-ink p-2 font-mono bg-white focus:outline-none focus:ring-2 focus:ring-ink"
                   placeholder="Volts"
                 />
               </div>
@@ -132,7 +132,7 @@ export function EngineeringLab() {
                   type="number" 
                   value={current}
                   onChange={(e) => setCurrent(e.target.value)}
-                  className="w-full border-2 border-ink p-2 font-mono bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full border-2 border-ink p-2 font-mono bg-white focus:outline-none focus:ring-2 focus:ring-ink"
                   placeholder="Amps"
                 />
               </div>
@@ -142,7 +142,7 @@ export function EngineeringLab() {
                   type="number" 
                   value={resistance}
                   onChange={(e) => setResistance(e.target.value)}
-                  className="w-full border-2 border-ink p-2 font-mono bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full border-2 border-ink p-2 font-mono bg-white focus:outline-none focus:ring-2 focus:ring-ink"
                   placeholder="Ohms"
                 />
               </div>
@@ -180,7 +180,7 @@ export function EngineeringLab() {
                 <select 
                   value={band1}
                   onChange={(e) => setBand1(e.target.value)}
-                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ink"
                 >
                   <option value="0">Black (0)</option>
                   <option value="1">Brown (1)</option>
@@ -199,7 +199,7 @@ export function EngineeringLab() {
                 <select 
                   value={band2}
                   onChange={(e) => setBand2(e.target.value)}
-                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ink"
                 >
                   <option value="0">Black (0)</option>
                   <option value="1">Brown (1)</option>
@@ -218,7 +218,7 @@ export function EngineeringLab() {
                 <select 
                   value={multiplier}
                   onChange={(e) => setMultiplier(e.target.value)}
-                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ink"
                 >
                   <option value="1">Black (x1)</option>
                   <option value="10">Brown (x10)</option>
@@ -236,7 +236,7 @@ export function EngineeringLab() {
                 <select 
                   value={tolerance}
                   onChange={(e) => setTolerance(e.target.value)}
-                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full border-2 border-ink p-2 font-mono text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ink"
                 >
                   <option value="1">Brown (±1%)</option>
                   <option value="2">Red (±2%)</option>
@@ -274,13 +274,13 @@ export function EngineeringLab() {
 
           {/* Article */}
           <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
-            <h2 className="text-2xl font-black font-serif uppercase tracking-tighter mb-4 text-blue-600">
+            <h2 className="text-2xl font-black font-serif uppercase tracking-tighter mb-4 text-ink">
               Precision Design: Moving from Theory to the Breadboard
             </h2>
             <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
               Theoretical calculations often assume ideal components, but real-world engineering requires accounting for tolerances. A 1kΩ resistor with a 5% tolerance can measure anywhere from 950Ω to 1050Ω. In sensitive analog circuits, this margin of error can drastically shift operating points. Similarly, electrolytic capacitors can have tolerances as loose as ±20%, affecting timing circuits and filter cutoffs. Always measure critical components before soldering and design with worst-case scenarios in mind.
             </p>
-            <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
+            <div className="bg-ink/5 border-l-4 border-ink p-4 mt-4">
               <p className="font-serif text-sm font-bold text-ink">
                 Safety Warning: How NOT to use: Not for life-critical, medical, or illegal activities.
               </p>

@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { Helmet } from "react-helmet-async";
 import { AdContainer } from "../components/AdContainer";
 import { GoogleGenAI } from "@google/genai";
-import { RefreshCw, Copy, CheckCircle2, Wand2, Type } from "lucide-react";
+import { RefreshCw, Copy, CheckCircle2, Wand2, Type, Trash2, Download } from "lucide-react";
 
 export function LinguisticHub() {
   const [inputText, setInputText] = useState("");
@@ -49,6 +49,23 @@ export function LinguisticHub() {
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const exportData = () => {
+    if (!outputText) return;
+    const blob = new Blob([outputText], { type: "text/plain;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `paraphrased-text.txt`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const clearData = () => {
+    setInputText("");
+    setOutputText("");
+    setTargetWordCount("");
   };
 
   const copyData = () => {
@@ -117,7 +134,7 @@ export function LinguisticHub() {
                 <textarea
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  className="w-full h-64 border-2 border-ink p-4 font-sans text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
+                  className="w-full h-64 border-2 border-ink p-4 font-sans text-sm bg-white focus:outline-none focus:ring-2 focus:ring-ink resize-none"
                   placeholder="Enter text to paraphrase or tweak..."
                 />
               </div>
@@ -139,28 +156,32 @@ export function LinguisticHub() {
                     className="w-full h-64 border-2 border-ink p-4 font-sans text-sm bg-ink/5 focus:outline-none resize-none"
                     placeholder="AI generated text will appear here..."
                   />
-                  {outputText && (
-                    <button 
-                      onClick={copyData}
-                      className="absolute bottom-4 right-4 bg-white border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors"
-                    >
-                      {copied ? <CheckCircle2 size={12} /> : <Copy size={12} />} {copied ? "Copied" : "Copy"}
-                    </button>
-                  )}
                 </div>
               </div>
             </div>
 
+            <div className="flex flex-wrap gap-2 justify-end mb-6">
+              <button onClick={clearData} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                <Trash2 size={12} /> Clear
+              </button>
+              <button onClick={copyData} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                {copied ? <CheckCircle2 size={12} /> : <Copy size={12} />} {copied ? "Copied" : "Copy"}
+              </button>
+              <button onClick={exportData} className="border-2 border-ink px-3 py-1 font-serif font-bold uppercase tracking-widest text-xs flex items-center gap-1 hover:bg-ink hover:text-white transition-colors">
+                <Download size={12} /> Export
+              </button>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-4 items-end border-t-2 border-ink/20 pt-6">
               <div className="flex-1 w-full">
-                <label className="block font-serif text-xs font-bold uppercase tracking-widest mb-2 text-blue-600">Smart-Tweak: Target Word Count (Optional)</label>
+                <label className="block font-serif text-xs font-bold uppercase tracking-widest mb-2 text-ink">Smart-Tweak: Target Word Count (Optional)</label>
                 <div className="flex items-center gap-2">
                   <Type size={16} className="text-ink/50" />
                   <input 
                     type="number" 
                     value={targetWordCount}
                     onChange={(e) => setTargetWordCount(e.target.value)}
-                    className="w-full border-b-2 border-ink p-2 font-mono text-sm bg-transparent focus:outline-none focus:border-blue-600"
+                    className="w-full border-b-2 border-ink p-2 font-mono text-sm bg-transparent focus:outline-none focus:border-ink"
                     placeholder="e.g. 250 (Overrides mode)"
                   />
                 </div>
@@ -168,7 +189,7 @@ export function LinguisticHub() {
               <button
                 onClick={handleProcess}
                 disabled={isProcessing || !inputText.trim()}
-                className="w-full sm:w-auto bg-ink text-white font-serif font-bold uppercase tracking-widest px-8 py-3 hover:bg-blue-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shrink-0"
+                className="w-full sm:w-auto bg-ink text-white font-serif font-bold uppercase tracking-widest px-8 py-3 hover:bg-ink/80 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 shrink-0"
               >
                 {isProcessing ? <RefreshCw size={18} className="animate-spin" /> : <Wand2 size={18} />}
                 {isProcessing ? "Processing..." : "Process Text"}
@@ -182,7 +203,7 @@ export function LinguisticHub() {
 
           {/* Article */}
           <div className="border border-ink p-6 bg-white/50 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
-            <h2 className="text-2xl font-black font-serif uppercase tracking-tighter mb-4 text-blue-600">
+            <h2 className="text-2xl font-black font-serif uppercase tracking-tighter mb-4 text-ink">
               Computational Linguistics: Mastering Word-Count Precision
             </h2>
             <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
@@ -191,7 +212,7 @@ export function LinguisticHub() {
             <p className="font-sans text-lg leading-relaxed text-ink/90 mb-4">
               Modern computational linguistics and Large Language Models (LLMs) have revolutionized this process. By utilizing advanced tokenization and semantic restructuring algorithms, AI can rephrase entire paragraphs to hit specific length targets while preserving the core message. The "Smart-Tweak" feature leverages these capabilities, allowing engineers and researchers to focus on the substance of their work rather than the character limits of their forms.
             </p>
-            <div className="bg-red-100 border-l-4 border-red-600 p-4 mt-4">
+            <div className="bg-ink/5 border-l-4 border-ink p-4 mt-4">
               <p className="font-serif text-sm font-bold text-ink">
                 Safety Warning: How NOT to use: Not for life-critical, medical, or illegal activities.
               </p>
