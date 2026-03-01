@@ -12,11 +12,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
-      - name: Trash Bad AI Ingredients
+          node-version: 20
+      - name: Nuke AI Lock Files
         run: rm -rf node_modules package-lock.json
-      - name: Install Fresh Ingredients
-        run: npm install --force --legacy-peer-deps
+      - name: Force Install Fresh Ingredients
+        run: npm install --no-package-lock --legacy-peer-deps
+      - name: Rebuild Engine Parts
+        run: npm rebuild
       - name: Bake the Site
         run: CI=false npm run build
       - name: Send to Hostinger Branch
