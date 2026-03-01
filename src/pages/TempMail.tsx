@@ -15,8 +15,9 @@ export function TempMail() {
   const [selectedMail, setSelectedMail] = useState<any>(null);
   const [mailContent, setMailContent] = useState<string>("");
   const [loadingMail, setLoadingMail] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const API_URL = "https://api.mail.tm";
+  const API_URL = "https://api.mail.gw";
 
   useEffect(() => {
     const storedEmail = localStorage.getItem("omnivault_email");
@@ -31,26 +32,33 @@ export function TempMail() {
 
   const generateEmail = async () => {
     setLoading(true);
+    setErrorMsg(null);
     setCountdown(600);
     try {
       const domainsRes = await fetch(`${API_URL}/domains`);
+      if (!domainsRes.ok) throw new Error("Failed to fetch domains");
       const domainsData = await domainsRes.json();
       const domain = domainsData['hydra:member'][0].domain;
 
       const address = `omni_${Math.random().toString(36).substring(2, 10)}@${domain}`;
       const password = "password123";
       
-      await fetch(`${API_URL}/accounts`, {
+      const accountRes = await fetch(`${API_URL}/accounts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ address, password }),
       });
+      
+      if (!accountRes.ok) throw new Error("Failed to create account");
 
       const tokenRes = await fetch(`${API_URL}/token`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ address, password }),
       });
+      
+      if (!tokenRes.ok) throw new Error("Failed to get token");
+      
       const tokenData = await tokenRes.json();
       
       setToken(tokenData.token);
@@ -59,8 +67,9 @@ export function TempMail() {
       
       localStorage.setItem("omnivault_email", address);
       localStorage.setItem("omnivault_token", tokenData.token);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to generate email", error);
+      setErrorMsg("Connection failed. Your adblocker or network might be blocking the mail server.");
     } finally {
       setLoading(false);
     }
@@ -69,14 +78,27 @@ export function TempMail() {
   const fetchMessages = async () => {
     if (!token) return;
     setLoading(true);
+    setErrorMsg(null);
     try {
       const res = await fetch(`${API_URL}/messages`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      
+      if (res.status === 401) {
+        // Token expired or invalid
+        localStorage.removeItem("omnivault_email");
+        localStorage.removeItem("omnivault_token");
+        generateEmail();
+        return;
+      }
+      
+      if (!res.ok) throw new Error("Failed to fetch messages");
+      
       const data = await res.json();
       setMessages(data['hydra:member'] || []);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to fetch messages", error);
+      setErrorMsg("Failed to sync messages. Retrying...");
     } finally {
       setLoading(false);
     }
@@ -171,6 +193,11 @@ export function TempMail() {
 
         <div className="lg:col-span-8 space-y-8">
           <div className="border-newspaper p-8 bg-white/50">
+            {errorMsg && (
+              <div className="bg-ink/5 border-l-4 border-ink p-4 mb-6">
+                <p className="font-serif text-sm font-bold text-ink">{errorMsg}</p>
+              </div>
+            )}
             <div className="flex flex-col md:flex-row items-stretch gap-0 border-newspaper-thick">
               <div className="flex-1 relative bg-white">
                 <input
